@@ -1,12 +1,13 @@
 class FavoritesController < ApplicationController
-  
+  before_action :authenticate_user!
   def create
-    book = Book.find(params[:book_id])
-    favorite = current_user.favorites.new(book_id: book.id)
-    favorite.save
-    redirect_back
+    user = User.find(params[:user_id])
+    current_user.favorite(user)
+    redirect_to request.referer
   end
   
   def destroy
+    user = User.find(params[:user_id])
+    current_user.un
   end
 end
